@@ -26,22 +26,42 @@ class _MahasiswaProfileState extends State<MahasiswaProfile> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      showDialog(
-        context: context,
-        builder: (context) => AlertDialog(
-          title: const Text('Informasi Aplikasi'),
-          content: const Text(
-            'Widget yang digunakan:\n- Image\n- Text\n- Icon\n- Button\n\nNama: Egha Arya Affandi\nNIM: 221080200077',
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Tutup'),
-            ),
-          ],
-        ),
-      );
+      showWidgetInfo();
     });
+  }
+
+  void showWidgetInfo() {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Informasi Aplikasi \nTugas 03 Pemrograman Mobile'),
+        content: const Text(
+          'Widget yang digunakan:\n- Image\n- Text\n- Icon\n- Button\n- Layout: Column dan Row\n\nNama: Egha Arya Affandi\nNIM: 221080200077',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Tutup'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void showDetail(String title, String content) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(title),
+        content: Text(content),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Tutup'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -75,53 +95,113 @@ class _MahasiswaProfileState extends State<MahasiswaProfile> {
                 ),
                 const SizedBox(height: 5),
                 const Text(
+                  'NIM: 221080200077',
+                  style: TextStyle(fontSize: 16, color: Colors.black87),
+                ),
+                const SizedBox(height: 5),
+                const Text(
                   'Mahasiswa Informatika - Universitas Muhammadiyah Sidoarjo',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 14, color: Colors.grey),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 25),
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.email, color: Colors.blueAccent),
-                    SizedBox(width: 8),
-                    Text('eghaarya@example.com'),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.phone, color: Colors.green),
-                    SizedBox(width: 8),
-                    Text('+62 812-3456-7890'),
-                  ],
-                ),
-                const SizedBox(height: 8),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Icon(Icons.location_on, color: Colors.redAccent),
-                    SizedBox(width: 8),
-                    Text('Sidoarjo, Indonesia'),
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    Column(
+                      children: [
+                        const Icon(Icons.email, color: Colors.blueAccent),
+                        const SizedBox(height: 4),
+                        const Text('Email'),
+                        const SizedBox(height: 4),
+                        ElevatedButton.icon(
+                          onPressed: () => showDetail(
+                            'Detail Email',
+                            'Email: eghaarya@example.com',
+                          ),
+                          icon: const Icon(
+                            Icons.mail_outline,
+                            color: Colors.white,
+                          ),
+                          label: const Text(
+                            'Lihat Email',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.blueAccent,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        const Icon(Icons.phone, color: Colors.green),
+                        const SizedBox(height: 4),
+                        const Text('Telepon'),
+                        const SizedBox(height: 4),
+                        ElevatedButton.icon(
+                          onPressed: () => showDetail(
+                            'Detail Telepon',
+                            'Nomor: +62 812-3456-7890',
+                          ),
+                          icon: const Icon(Icons.call, color: Colors.white),
+                          label: const Text(
+                            'Lihat Telp',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.green,
+                          ),
+                        ),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        const Icon(Icons.location_on, color: Colors.redAccent),
+                        const SizedBox(height: 4),
+                        const Text('Alamat'),
+                        const SizedBox(height: 4),
+                        ElevatedButton.icon(
+                          onPressed: () => showDetail(
+                            'Detail Alamat',
+                            'Alamat: Sidoarjo, Indonesia',
+                          ),
+                          icon: const Icon(Icons.map, color: Colors.white),
+                          label: const Text(
+                            'Lihat Map',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.redAccent,
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
                 const SizedBox(height: 25),
                 ElevatedButton.icon(
-                  onPressed: () {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Halo, ini profil Egha Arya Affandi!'),
-                      ),
-                    );
-                  },
-                  icon: const Icon(Icons.info_outline, color: Colors.white),
+                  onPressed: showWidgetInfo,
+                  icon: const Icon(Icons.widgets, color: Colors.white),
                   label: const Text(
-                    'Lihat Detail',
-                    style: TextStyle(fontSize: 16, color: Colors.white),
+                    'Lihat Detail Widget',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blueAccent,
+                    backgroundColor: Colors.deepPurple,
                     padding: const EdgeInsets.symmetric(
                       horizontal: 30,
                       vertical: 12,
